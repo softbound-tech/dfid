@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seed Calculator | Qualiseed Ltd</title>
+<meta name="description" content="Free seed quantity calculator for Ghanaian farmers. Enter your farm size and crop to estimate how much certified seed you need this season.">
+<meta name="theme-color" content="#0B3D24">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B3D24'/%3E%3Cpath d='M32 50C32 50 16 40 16 24C16 15 22 10 32 10C42 10 48 15 48 24C48 40 32 50 32 50Z' fill='%231F8B4C'/%3E%3Cpath d='M32 46V16' stroke='%23D9A441' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="assets/css/calculator.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="Qualiseed Ltd home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="34" height="34">
+          <path d="M32 50C32 50 16 40 16 24C16 15 22 10 32 10C42 10 48 15 48 24C48 40 32 50 32 50Z" fill="currentColor"/>
+          <path d="M32 46V16" stroke="#D9A441" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="logo-text">Quali<em>seed</em></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Primary">
+      <a href="index.html#why">Why Qualiseed</a>
+      <a href="index.html#products">Our Seeds</a>
+      <a href="calculator.html" class="active">Seed Calculator</a>
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#dealers">Agro-Dealers</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+
+    <div class="header-cta">
+      <a href="tel:0208373586" class="btn btn-ghost header-call">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.5.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.4.6 3.5.1.4 0 .8-.2 1L6.6 10.8z" fill="currentColor"/></svg>
+        020 837 3586
+      </a>
+      <a href="https://wa.me/233208373586?text=Hello%20Qualiseed%2C%20I%27d%20like%20to%20know%20more%20about%20your%20certified%20seeds." target="_blank" rel="noopener" class="btn btn-primary header-wa">
+        Chat on WhatsApp
+      </a>
+    </div>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ CALC INTRO ============ -->
+  <section class="calc-hero">
+    <div class="container calc-hero-inner">
+      <p class="eyebrow reveal">Free Tool</p>
+      <h1 class="reveal">Seed Quantity Calculator</h1>
+      <p class="hero-sub reveal">Tell us your crop and farm size — we'll estimate how much certified seed you need to plant, so you order the right amount the first time.</p>
+    </div>
+  </section>
+
+  <!-- ============ CALCULATOR ============ -->
+  <section class="section calc-section">
+    <div class="container">
+      <div class="calc-card reveal">
+
+        <!-- Crop tabs -->
+        <div class="calc-block">
+          <span class="calc-label">1. Choose your crop</span>
+          <div class="crop-tabs" id="cropTabs" role="tablist">
+            <button type="button" class="crop-tab active" data-crop="maize" role="tab" aria-selected="true">
+              <span class="crop-swatch crop-swatch--maize"></span> Maize
+            </button>
+            <button type="button" class="crop-tab" data-crop="rice" role="tab" aria-selected="false">
+              <span class="crop-swatch crop-swatch--rice"></span> Rice
+            </button>
+            <button type="button" class="crop-tab" data-crop="soybean" role="tab" aria-selected="false">
+              <span class="crop-swatch crop-swatch--soy"></span> Soybean
+            </button>
+            <button type="button" class="crop-tab" data-crop="vegetable" role="tab" aria-selected="false">
+              <span class="crop-swatch crop-swatch--veg"></span> Vegetables
+            </button>
+          </div>
+        </div>
+
+        <!-- Farm size -->
+        <div class="calc-block">
+          <span class="calc-label">2. Enter your farm size</span>
+          <div class="size-input-row">
+            <input type="number" id="farmSize" inputmode="decimal" min="0" step="0.1" value="2" aria-label="Farm size">
+            <div class="unit-toggle" id="unitToggle">
+              <button type="button" class="unit-btn active" data-unit="acres">Acres</button>
+              <button type="button" class="unit-btn" data-unit="hectares">Hectares</button>
+            </div>
+          </div>
+          <p class="size-convert" id="sizeConvert"></p>
+        </div>
+
+        <!-- Advanced -->
+        <details class="calc-advanced" id="advancedBlock">
+          <summary>Advanced: adjust seeding rate</summary>
+          <div class="advanced-body">
+            <label for="rateInput" id="rateLabel">Seeding rate (kg per hectare)</label>
+            <input type="number" id="rateInput" min="1" step="1">
+            <p class="advanced-hint" id="rateHint"></p>
+          </div>
+        </details>
+
+        <!-- Results: calculable crops -->
+        <div class="calc-result" id="resultNumeric">
+          <div class="result-main">
+            <span class="result-figure" id="resultKg">—</span>
+            <span class="result-unit">kg of certified seed</span>
+          </div>
+          <p class="result-range" id="resultRange"></p>
+          <p class="result-bags" id="resultBags"></p>
+
+          <a href="#" target="_blank" rel="noopener" class="btn btn-primary btn-lg result-cta" id="resultWaLink">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10 9 9.4 7.5 9.1 7c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z" fill="currentColor"/><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18.2a8.1 8.1 0 01-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1112 20.2z" fill="currentColor"/></svg>
+            Get This Quote on WhatsApp
+          </a>
+
+          <p class="result-disclaimer">This is a general estimate based on standard agronomic seeding rates — not a Qualiseed price quote. Actual requirements vary by variety, soil and planting method. Confirm exact quantities and current stock with our team before ordering.</p>
+        </div>
+
+        <!-- Results: vegetables (no single rate) -->
+        <div class="calc-result calc-result--veg" id="resultVeg" hidden>
+          <h3>Every Vegetable Is Different</h3>
+          <p>Seeding rates for vegetables vary hugely by type — tomato, pepper, okra, onion and garden eggs are not planted the same way. Rather than guess, chat with us and we'll recommend the right seed quantity for your specific crop and farm size.</p>
+          <a href="#" target="_blank" rel="noopener" class="btn btn-primary btn-lg" id="vegWaLink">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10 9 9.4 7.5 9.1 7c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z" fill="currentColor"/><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18.2a8.1 8.1 0 01-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1112 20.2z" fill="currentColor"/></svg>
+            Get a Vegetable Seed Recommendation
+          </a>
+        </div>
+
+      </div>
+
+      <!-- How we calculate -->
+      <details class="calc-info reveal">
+        <summary>How we calculate this</summary>
+        <div class="calc-info-body">
+          <p>We use typical certified-seed seeding rates per hectare, then scale to your farm size:</p>
+          <ul>
+            <li><strong>Maize:</strong> ~20–25 kg/ha (22 kg/ha typical)</li>
+            <li><strong>Rice (direct seeded):</strong> ~40–60 kg/ha (50 kg/ha typical)</li>
+            <li><strong>Soybean:</strong> ~60–80 kg/ha (70 kg/ha typical)</li>
+          </ul>
+          <p>These are general agronomic guide rates, not Qualiseed-specific specifications. Your ideal rate can shift with variety, spacing, soil fertility and planting method — use the "Advanced" option above to plug in your own rate if you have one, or ask our team for a tailored recommendation.</p>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="final-cta">
+    <div class="container final-cta-inner reveal">
+      <h2>Ready to Order Your Seeds?</h2>
+      <p>Send us your estimate and we'll confirm availability and delivery.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/233208373586?text=Hello%20Qualiseed%2C%20I%27d%20like%20to%20order%20certified%20seeds." target="_blank" rel="noopener" class="btn btn-primary btn-lg">Chat on WhatsApp</a>
+        <a href="tel:0208373586" class="btn btn-outline btn-lg">Call 020 837 3586</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" id="contact">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <span class="logo-text light">Quali<em>seed</em></span>
+      <p>Grow More, Grow Better.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:0208373586">020 837 3586</a></li>
+        <li><a href="https://www.qualiseed.com" target="_blank" rel="noopener">www.qualiseed.com</a></li>
+        <li><a href="https://wa.me/233208373586" target="_blank" rel="noopener">WhatsApp Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="index.html#why">Why Qualiseed</a></li>
+        <li><a href="index.html#products">Our Seeds</a></li>
+        <li><a href="index.html#dealers">Agro-Dealers</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <ul>
+        <li><a href="https://instagram.com/qualiseedltd" target="_blank" rel="noopener">@qualiseedltd</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Qualiseed Ltd. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp button -->
+<a href="https://wa.me/233208373586?text=Hello%20Qualiseed%2C%20I%27d%20like%20to%20know%20more%20about%20your%20certified%20seeds." target="_blank" rel="noopener" class="wa-float" aria-label="Chat on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10 9 9.4 7.5 9.1 7c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3 4.8 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z" fill="currentColor"/><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm0 18.2a8.1 8.1 0 01-4.2-1.1l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1112 20.2z" fill="currentColor"/></svg>
+</a>
+
+<script src="assets/js/script.js"></script>
+<script src="assets/js/calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+/* ============================================
+   Qualiseed Ltd — Seed Calculator page
+   ============================================ */
+
+.main-nav a.active { color: var(--green-700); position: relative; }
+.main-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 2px;
+  background: var(--gold-500);
+  border-radius: 2px;
+}
+
+/* ---------- Calc hero ---------- */
+.calc-hero {
+  background: linear-gradient(180deg, var(--green-50) 0%, var(--white) 100%);
+  padding: 64px 0 20px;
+}
+.calc-hero-inner { max-width: 700px; }
+.calc-hero h1 {
+  font-size: clamp(2rem, 4.4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+/* ---------- Calc card ---------- */
+.calc-section { padding-top: 28px; }
+
+.calc-card {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 36px;
+  max-width: 720px;
+  margin: 0 auto 28px;
+}
+
+.calc-block { margin-bottom: 28px; }
+.calc-label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--green-900);
+  margin-bottom: 14px;
+}
+
+/* Crop tabs */
+.crop-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.crop-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--gray-300);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.crop-tab:hover { border-color: var(--green-500); }
+.crop-tab.active { border-color: var(--green-600); background: var(--green-50); color: var(--green-800); }
+
+.crop-swatch { width: 20px; height: 20px; border-radius: 50%; display: block; }
+.crop-swatch--maize { background: linear-gradient(135deg, #D9A441, #C08A2E); }
+.crop-swatch--rice  { background: linear-gradient(135deg, #7CB889, #2F7D4F); }
+.crop-swatch--soy   { background: linear-gradient(135deg, #1F8B4C, #0F4C2C); }
+.crop-swatch--veg   { background: linear-gradient(135deg, #6FAE73, #146C3A); }
+
+/* Size input */
+.size-input-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.size-input-row input[type="number"] {
+  flex: 1;
+  min-width: 120px;
+  padding: 13px 16px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--gray-300);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--green-900);
+}
+.size-input-row input[type="number"]:focus { outline: none; border-color: var(--green-600); }
+
+.unit-toggle { display: flex; border-radius: var(--radius-md); overflow: hidden; border: 2px solid var(--gray-300); }
+.unit-btn {
+  padding: 13px 18px;
+  border: none;
+  background: var(--white);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.unit-btn.active { background: var(--green-600); color: var(--white); }
+
+.size-convert { margin: 10px 0 0; font-size: 0.85rem; color: var(--gray-500); }
+
+/* Advanced */
+.calc-advanced {
+  border-top: 1px solid var(--gray-300);
+  padding-top: 18px;
+  margin-bottom: 24px;
+}
+.calc-advanced summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--green-700);
+  font-size: 0.92rem;
+  list-style: none;
+}
+.calc-advanced summary::-webkit-details-marker { display: none; }
+.calc-advanced summary::before { content: "\25B8  "; color: var(--gold-600); }
+.calc-advanced[open] summary::before { content: "\25BE  "; }
+
+.advanced-body { margin-top: 16px; }
+.advanced-body label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--gray-700); margin-bottom: 8px; }
+.advanced-body input {
+  width: 100%;
+  max-width: 220px;
+  padding: 11px 14px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--gray-300);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--green-900);
+}
+.advanced-hint { margin: 8px 0 0; font-size: 0.82rem; color: var(--gray-500); }
+
+/* Results */
+.calc-result {
+  border-top: 2px solid var(--green-100);
+  padding-top: 28px;
+  text-align: center;
+}
+.result-main { display: flex; align-items: baseline; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+.result-figure { font-family: var(--font-display); font-weight: 800; font-size: 3rem; color: var(--green-700); line-height: 1; }
+.result-unit { font-weight: 600; color: var(--gray-500); font-size: 1rem; }
+
+.result-range { margin: 0 0 4px; color: var(--gray-500); font-size: 0.92rem; }
+.result-bags { margin: 0 0 24px; color: var(--green-800); font-weight: 600; font-size: 0.95rem; }
+
+.result-cta { margin: 0 auto 18px; }
+
+.result-disclaimer { max-width: 520px; margin: 0 auto; font-size: 0.8rem; color: var(--gray-500); line-height: 1.5; }
+
+/* Vegetable result */
+.calc-result--veg h3 { font-size: 1.2rem; margin-bottom: 10px; }
+.calc-result--veg p { color: var(--gray-500); max-width: 480px; margin: 0 auto 22px; }
+
+/* How we calculate */
+.calc-info {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--green-50);
+  border-radius: var(--radius-lg);
+  padding: 22px 28px;
+}
+.calc-info summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--green-800);
+  font-family: var(--font-display);
+  list-style: none;
+}
+.calc-info summary::-webkit-details-marker { display: none; }
+.calc-info summary::before { content: "\25B8  "; color: var(--gold-600); }
+.calc-info[open] summary::before { content: "\25BE  "; }
+.calc-info-body { margin-top: 16px; color: var(--gray-700); font-size: 0.92rem; }
+.calc-info-body ul { margin: 10px 0; padding-left: 20px; list-style: disc; }
+.calc-info-body li { margin-bottom: 6px; }
+
+@media (max-width: 640px) {
+  .calc-card { padding: 24px 20px; }
+  .crop-tabs { grid-template-columns: repeat(2, 1fr); }
+  .result-figure { font-size: 2.4rem; }
+}

@@ -269,6 +269,21 @@ h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; color: var(--green
 .product-link { color: var(--green-700); font-weight: 600; font-size: 0.9rem; }
 .product-link:hover { color: var(--gold-600); }
 
+/* ---------- Calculator teaser ---------- */
+.calc-teaser { background: var(--gold-300); }
+.calc-teaser-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 40px 24px;
+}
+.calc-teaser-copy { max-width: 620px; }
+.calc-teaser-copy .eyebrow { color: var(--green-800); }
+.calc-teaser-copy .section-title { margin-bottom: 8px; font-size: 1.6rem; }
+.calc-teaser-copy p { margin: 0; color: var(--green-900); opacity: 0.85; }
+
 /* ---------- Steps ---------- */
 .steps {
   display: grid;
