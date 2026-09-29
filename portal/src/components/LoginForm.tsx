@@ -10,15 +10,14 @@ export function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault();
+  async function login(loginPhone: string, loginPin: string) {
     setError(null);
     setLoading(true);
 
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ phone, pin }),
+      body: JSON.stringify({ phone: loginPhone, pin: loginPin }),
     });
 
     setLoading(false);
@@ -32,6 +31,11 @@ export function LoginForm() {
     const data = await res.json();
     router.push(data.role === "ADMIN" ? "/dashboard" : "/entry");
     router.refresh();
+  }
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    await login(phone, pin);
   }
 
   return (
@@ -78,6 +82,32 @@ export function LoginForm() {
       >
         {loading ? "Signing in..." : "Sign in"}
       </button>
+
+      {process.env.NODE_ENV !== "production" && (
+        <div className="mt-4 flex flex-col gap-2 rounded-lg border border-dashed border-border p-3">
+          <p className="text-xs font-medium text-muted">
+            Dev only — skips typing the demo PIN (never shown in a real deploy)
+          </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              disabled={loading}
+              onClick={() => login("233200000001", "1234")}
+              className="flex-1 rounded-lg border border-border px-3 py-2 text-sm font-medium hover:border-brand hover:text-brand transition-colors disabled:opacity-60"
+            >
+              Quick login: Admin
+            </button>
+            <button
+              type="button"
+              disabled={loading}
+              onClick={() => login("233240000002", "1234")}
+              className="flex-1 rounded-lg border border-border px-3 py-2 text-sm font-medium hover:border-brand hover:text-brand transition-colors disabled:opacity-60"
+            >
+              Quick login: Agent
+            </button>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
