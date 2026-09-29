@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum Role {
+  ADMIN
+  AGENT
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String   @unique
+  pinHash   String
+  role      Role
+  active    Boolean  @default(true)
+  region    String?
+  createdAt DateTime @default(now())
+
+  submissions FarmerSubmission[]
+}
+
+model FarmerSubmission {
+  id            String   @id @default(cuid())
+  farmerName    String
+  farmerPhone   String
+  region        String
+  district      String
+  community     String?
+  crop          String
+  variety       String?
+  acres         Float
+  plantingMonth Int
+  plantingYear  Int
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  agent   User   @relation(fields: [agentId], references: [id])
+  agentId String
+}
+
+model SeedingRate {
+  id         String @id @default(cuid())
+  crop       String @unique
+  kgPerAcre  Float
+  bagSizeKg  Float
+  updatedAt  DateTime @updatedAt
+}

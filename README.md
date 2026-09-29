@@ -1,4 +1,13 @@
-# Qualiseed Ltd — Landing Page
+# Qualiseed Ltd
+
+This repo holds two independent projects for Qualiseed Ltd, a certified seed company serving farmers across Ghana:
+
+- **`/` (this file's folder)** — the public marketing landing page. See below.
+- **[`portal/`](portal/README.md)** — the Farm Intelligence Portal, an internal
+  tool where agro-dealers record farmer planting plans and Qualiseed staff
+  see a live seed-demand forecast. See `portal/README.md` for setup.
+
+## Qualiseed Ltd — Landing Page
 
 A premium, conversion-focused landing page for Qualiseed Ltd, a certified seed company serving farmers across Ghana.
 
