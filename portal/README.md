@@ -22,17 +22,21 @@ See "Before a real pilot" below for what to check before relying on it.
 
 ## Stack
 
-Next.js 16 (App Router, TypeScript) · Tailwind CSS · Prisma 7 + SQLite ·
+Next.js 16 (App Router, TypeScript) · Tailwind CSS · Prisma 7 + PostgreSQL ·
 Recharts · JWT session cookies (no third-party auth provider — this is a
 small internal tool, not a consumer product).
 
 ## Getting started
 
+You need a Postgres database to develop against — a free
+[Neon](https://neon.tech) database works well and needs no local install.
+
 ```bash
 npm install
-npx prisma migrate dev   # creates prisma/dev.db and applies the schema
-npx prisma db seed        # loads sample seeding rates + demo logins
-npm run dev                # http://localhost:3000
+# set DATABASE_URL in .env to your Postgres connection string
+npx prisma db push   # creates the tables from prisma/schema.prisma
+npx prisma db seed    # loads sample seeding rates + demo logins
+npm run dev            # http://localhost:3000
 ```
 
 Demo logins (seeded by `prisma/seed.ts` — **change or remove before any real
@@ -43,9 +47,9 @@ pilot use**):
 | Admin | 233200000001    | 1234 |
 | Agent | 233240000002    | 1234 |
 
-`.env` holds `DATABASE_URL` (SQLite file) and `SESSION_SECRET` (used to sign
-session cookies). Both have working local defaults, but **generate a real
-random `SESSION_SECRET` before deploying anywhere real**:
+`.env` holds `DATABASE_URL` and `SESSION_SECRET` (used to sign session
+cookies) — **generate a real random `SESSION_SECRET` before deploying
+anywhere real**:
 
 ```bash
 openssl rand -base64 32
@@ -65,27 +69,21 @@ openssl rand -base64 32
 
 ## Deploying
 
-The app is a standard Next.js app and deploys cleanly to Vercel. The one
-thing to change first: **swap SQLite for a hosted database**, since
-serverless platforms don't give you a persistent filesystem to keep a SQLite
-file in.
+The app is a standard Next.js app and deploys cleanly to Vercel:
 
-The schema and code don't need to change beyond the datasource — Prisma's
-driver-adapter architecture makes this a small, contained edit:
-
-1. Provision a Postgres database (e.g. [Neon](https://neon.tech) has a
-   generous free tier and pairs well with Vercel; Vercel Postgres works too).
-2. In `prisma/schema.prisma`, change `provider = "sqlite"` to
-   `provider = "postgresql"` under `datasource db`.
-3. Swap the adapter in `src/lib/db.ts` and `prisma/seed.ts`: replace
-   `@prisma/adapter-better-sqlite3` / `PrismaBetterSqlite3` with
-   `@prisma/adapter-pg` / `PrismaPg` (`npm install @prisma/adapter-pg pg`),
-   passing `{ connectionString: process.env.DATABASE_URL }`.
-4. Set `DATABASE_URL` (your Postgres connection string) and `SESSION_SECRET`
-   as environment variables on Vercel.
-5. Run `npx prisma migrate deploy` against the new database, then
-   `npx prisma db seed` once to load starter seeding-rate defaults (skip this
-   if you'd rather enter them by hand in Settings).
+1. Import the `softbound-tech/dfid` repo as a Vercel project, with **root
+   directory set to `portal`**.
+2. Add a Postgres database to the project (Vercel dashboard → the project →
+   **Storage** tab → **Create Database** → Postgres — Neon-backed, free tier
+   available). Connecting it to the project sets `DATABASE_URL`
+   automatically.
+3. Add a `SESSION_SECRET` environment variable (see above for generating one).
+4. Deploy. Then run once, pointed at the production database, to create the
+   tables and load starter data:
+   ```bash
+   DATABASE_URL="<production connection string>" npx prisma db push
+   DATABASE_URL="<production connection string>" npx prisma db seed
+   ```
 
 ## Scope notes / what's deliberately not here yet
 
