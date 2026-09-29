@@ -398,8 +398,11 @@ h1, h2, h3, h4 { font-family: var(--font-display); margin: 0; color: var(--green
 }
 .wa-float:hover { transform: scale(1.08); }
 
-/* ---------- Reveal animation ---------- */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+/* ---------- Reveal animation ----------
+   Content is visible by default. Only when JS has confirmed it's running
+   (via the early .js class on <html>) do .reveal elements start hidden,
+   so a slow/blocked/failed script never leaves the page blank. */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.in-view { opacity: 1; transform: translateY(0); }
 
 /* ============ Responsive ============ */

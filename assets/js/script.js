@@ -42,6 +42,10 @@
   } else {
     revealEls.forEach(function (el) { el.classList.add('in-view'); });
   }
+  // Safety net: never let a stalled observer or off-screen element stay hidden.
+  setTimeout(function () {
+    revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  }, 2500);
 
   var yearEl = document.getElementById('year');
   if (yearEl) { yearEl.textContent = new Date().getFullYear(); }
